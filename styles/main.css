@@ -1,0 +1,162 @@
+/* Variables ++++++++ */
+:root {
+	--light-text: #fefefe;
+	--light-background: #efefef;
+
+	--radius: 3px;
+
+	--box-shadow-common:
+		1px 0px 3px 1px hsla(0, 0%, 0%, .15),
+		0px 1px 2px 1px hsla(0, 0%, 0%, .1);
+
+	--box-shadow-hover:
+		1px 0px 3px 1px hsla(123, 50%, 10%, .3),
+		0px 1px 2px 1px hsla(123, 50%, 10%, .3);
+
+
+	--trans-duration-normal: 300ms;
+	--trans-duration-fast: 100ms;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	font-family: sans-serif;
+	padding: 4em 4em;
+	line-height: 1.5;
+
+	background-color: var(--light-background);
+}
+
+/* Rythme vertical */
+:where(:not(.grid)) > * + * {
+	margin-top: 1.2em;
+}
+
+body > * + * {
+	margin-top: 3em;
+}
+
+h1 {
+	max-width: 15ch;
+	
+	font-size: 3em;
+	line-height: 1.25;
+}
+
+main {
+	max-width: 80ch;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+a, button, .animal-class {
+	display: block;
+
+	max-width: max-content;
+	padding: 0.25em 0.5em;
+	border-radius: var(--radius);
+	
+	color: var(--light-text);	
+}
+
+.animal-class {
+	font-size: 0.8em;
+}
+
+.amphibien {
+	background-color: hsl(200, 50%, 20%);
+}
+
+.mammifere {
+	background-color: hsl(20, 50%, 20%);
+}
+
+.poisson {
+	background-color: hsl(240, 50%, 20%);
+}
+
+.reptile {
+	background-color: hsl(120, 50%, 20%);
+}
+
+.oiseau {
+	background-color: hsl(280, 50%, 20%);
+}
+
+a, button {
+	text-decoration: none;
+	background-color: hsla(240, 40%, 12%, .8);
+	box-shadow: var(--box-shadow-common);
+
+	transition-duration: var(--trans-duration-fast);
+}
+
+:is(a, button):hover {
+	box-shadow: var(--box-shadow-hover);
+}
+
+:is(a, button):active {
+	transform: translate(1px, 2px);
+}
+
+.tagline {
+	margin-top: 1em;
+	display: block;
+	font-size: 1.2em;
+}
+
+
+/* Grille fiches*/
+.animal-listing .grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(30ch, 1fr));
+	gap: 1.5rem;
+}
+
+.animal-listing article {
+	padding: 1em;
+	border-radius: var(--radius);
+	background-color: hsla(0, 0%, 0%, .08);
+}
+
+
+
+/* Formulaire et ses éléments */
+input, textarea, select {
+	display: block;
+	
+	width: 100%;
+	max-width: 40ch;
+	padding: 4px 8px;
+	
+	font-size: inherit;
+	font-family: sans-serif;
+	background-color: transparent;
+}
+
+input, select {
+	border: 0;
+	border-bottom: 1px solid currentColor;
+}
+
+option {
+	background-color: transparent;
+}
+
+textarea {
+	border: 1px solid currentColor;
+}
+
+button {
+	font-size: inherit;
+	border: 0;
+	cursor: pointer;
+}
+
+select {
+	font-size: inherit;
+}

@@ -1,0 +1,8 @@
+<IfModule mod_rewrite.c> 
+    RewriteEngine on
+      
+    RewriteRule ^([0-9]+)\/?$ formulaire.php?id=$1 [NC]
+        
+</IfModule>
+
+DirectoryIndex formulaire.php
