@@ -8,29 +8,36 @@
 
 	class XpetController {
 
-		public function form() {
+		public function index($id = null, $name = null) {
+			$xpetDAO = new XpetDAO();
+
+			if(
+				$id != null &&
+				$name != null &&
+				$xp = $xpetDAO->getXpetByIdSlug($id, $name)
+			) {
+				return TwigController::render(
+					"xpet-record",
+					[
+						"xpet" => $xp
+					]
+				);
+			}
 			
-		}
 
-		public function index() {
-			$classGW = new ClassDAO();
-			$cl = $classGW->selectAll();
-
-			$xpetGW = new XpetDAO();
-			$xp = $xpetGW->getAllXpets();
+			$xp = $xpetDAO->getAllXpets();
 
 			return TwigController::render(
 				"xpets-listing",
 				[
-					"classes" => $cl,
 					"xpets" => $xp
 				]
 			);
 		}
 
 		public function formulaire($id = null) {
-			$cl = new ClassDAO();
-			$classes = $cl->selectAll();
+			$clDAO = new ClassDAO();
+			$classes = $clDAO->selectAll();
 			
 			if(isset($_SESSION["xpetId"])) {
 				unset($_SESSION["xpetId"]);
@@ -39,8 +46,8 @@
 			if($id != null) {
 				$_SESSION["xpetId"] = $id;
 
-				$xp = new XPetDAO();
-				$xpet = $xp->getXpetById($id);
+				$xpDAO = new XPetDAO();
+				$xpet = $xpDAO->getXpetById($id);
 
 				return TwigController::render(
 					"xpet-formulaire",
@@ -77,8 +84,6 @@
 			}
 
 			FileController::redirect("xpet");
-
-
 		}
 
 	}

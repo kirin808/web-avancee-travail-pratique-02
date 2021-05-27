@@ -29,10 +29,26 @@
 			$controller = new $controllerName;
 
 			if(isset($url[1])) {
-				$method = $url[1];
 				$id = null;
 
-				if(isset($url[2])) {
+				if(is_numeric($url[1]) && isset($url[2])) {
+					$controller->index($url[1], $url[2]);
+				} else {
+					$method = $url[1];
+
+					if(isset($url[2]) && is_numeric($url[2])) {
+						$id = $url[2];
+					}					
+				}
+
+				if(method_exists($controller, $method)) {
+					echo $controller->$method($id);			
+				} else {
+					FileController::redirect("xpet");	
+				}
+				
+
+				/* if(isset($url[2]) && is_numeric($url[2])) {
 					$id = $url[2];
 				}
 
@@ -40,7 +56,7 @@
 					echo $controller->$method($id);			
 				} else {
 					FileController::redirect("xpet");		
-				}
+				} */
 			} else {
 				echo $controller->index();
 			}			
