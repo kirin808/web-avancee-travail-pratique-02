@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Formulaire d'enregistrement :: X-Pets</title>
+	<meta name="description" content="Formulaire permettant d'enregistrer ou mettre à jour une fiche animal dans la base de données de l'institution">
+
+	<!-- Fonts -->
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="/582-31B-MA-Programmation-web-avancees/travail-pratique-02/dev/styles/main.css">
+
+	<!-- Scripts -->
+	<script type="text/javascript" src="scripts/script.js"></script>
+</head>
+
+<body>
+	<header>
+		<h1>{{ headerText }}</h1>
+	</header>
+	<main>
+		<form action="/582-31B-MA-Programmation-web-avancees/travail-pratique-02/dev/xpet/updateXpet" method="post">
+			<div class="input-field">
+				<label for="inputName">Nom de l'animal : </label>
+				<input name="name" id="inputName" type="text" {% if update %}value="{{ xpet.name }}"{% endif %}> 
+			</div>
+
+			<div class="input-field">
+				<label for="selectClass">Classe animalière : </label>
+				<select name="classId" id="selectClass">
+					{% if not update %}
+					<option value="" disabled selected>Choisir une classe ...</option>
+					{% endif %}
+
+					{% for class in classes %}
+					<option
+						value="{{ class.id }}"
+						{% if update and class.id == xpet.classId %}selected{% endif %}>
+						{{ class.label }}
+					</option>
+					{% endfor %}
+				</select>
+			</div>
+			
+			<!-- <div class="input-field">
+				<label for="inputSuperpowers">Superpouvoirs : </label>
+				<textarea name="superpowers" id="inputSuperpowers"></textarea>
+			</div> -->
+
+			<div class="input-field">
+				<label for="inputDesc">Description : </label>
+				<textarea name="description" id="inputDesc">{% if update %}{{ xpet.description }}{% endif %}</textarea>
+			</div>
+
+			<button type="submit">Enregistrer l'animal</button>
+			
+			{% if update %}
+			<button type="submit" name="delete" value="true">Effacer l'animal</button>
+			{% endif %}
+		</form>
+	</main>
+</body>
+</html>

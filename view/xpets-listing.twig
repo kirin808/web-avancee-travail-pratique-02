@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>X-Pets - Adoption d'animaux avec superpouvoirs</title>
+	<meta name="description" content="Portail d'accueil de X-Pets, un centre d'hébergement et d'adoption pour animaux mutants">
+
+	<!-- Fonts -->
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="styles/main.css">
+
+	<!-- Scripts -->
+	<script type="text/javascript" src="scripts/script.js"></script>
+</head>
+
+<body>
+	<header>
+		<h1>Bienvenue chez Xpets Intl. !</h1>
+		<span class="tagline">Notre mission, trouver votre meilleur ami !</span>
+	</header>
+	
+	<main>
+		<section class="animal-listing">
+			<h2>Nos animaux</h2>
+			
+			<div class="grid">
+				{% for xpet in xpets %}
+				<article>
+					<h3>{{ xpet.name }}</h3>
+					<span class="animal-class aninalClass-id-{{ xpet.classId }}">{{ xpet.class }}</span>
+					<p>{{ xpet.description }}</p>
+					<a href="xpet/formulaire/{{ xpet.id }}">Mettre à jour</a>
+				</article>				
+				{% endfor %}
+			</div>
+		</section>
+
+		<a href="xpet/formulaire/">Ajouter une fiche</a>
+	</main>
+</body>
+</html>

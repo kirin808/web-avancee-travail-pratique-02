@@ -67,24 +67,25 @@ a, button, .animal-class {
 	font-size: 0.8em;
 }
 
-.amphibien {
-	background-color: hsl(200, 50%, 20%);
-}
 
-.mammifere {
+.aninalClass-id-1 {
 	background-color: hsl(20, 50%, 20%);
 }
 
-.poisson {
-	background-color: hsl(240, 50%, 20%);
-}
-
-.reptile {
+.aninalClass-id-2 {
 	background-color: hsl(120, 50%, 20%);
 }
 
-.oiseau {
+.aninalClass-id-3 {
 	background-color: hsl(280, 50%, 20%);
+}
+
+.aninalClass-id-4 {
+	background-color: hsl(240, 50%, 20%);
+}
+
+.aninalClass-id-5 {
+	background-color: hsl(200, 50%, 20%);
 }
 
 a, button {
