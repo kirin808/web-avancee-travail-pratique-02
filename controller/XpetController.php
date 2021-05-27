@@ -4,7 +4,7 @@
 
 	FileController::model("Gateway");
 	FileController::model("XpetDAO");
-	FileController::model("ClassGW");
+	FileController::model("ClassDAO");
 
 	class XpetController {
 
@@ -13,11 +13,11 @@
 		}
 
 		public function index() {
-			$classGW = new ClassGW();
+			$classGW = new ClassDAO();
 			$cl = $classGW->selectAll();
 
 			$xpetGW = new XpetDAO();
-			$xp = $xpetGW->selectAllXpets();
+			$xp = $xpetGW->getAllXpets();
 
 			return TwigController::render(
 				"xpets-listing",
@@ -29,17 +29,23 @@
 		}
 
 		public function formulaire($id = null) {
-			$cl = new ClassGW();
+			$cl = new ClassDAO();
 			$classes = $cl->selectAll();
 			
+			if(isset($_SESSION["xpetId"])) {
+				unset($_SESSION["xpetId"]);
+			}
+			
 			if($id != null) {
+				$_SESSION["xpetId"] = $id;
+
 				$xp = new XPetDAO();
-				$xpet = $xp->selectXpetById($id);
+				$xpet = $xp->getXpetById($id);
 
 				return TwigController::render(
-					"formulaire",
+					"xpet-formulaire",
 					[
-						"headerText" => "Formulaire d'enregistrement",
+						"headerText" => "Formulaire de mise à jour",
 						"classes" => $classes,
 						"xpet" => $xpet,
 						"update" => true
@@ -47,7 +53,7 @@
 				);
 			} else {
 				return TwigController::render(
-					"formulaire",
+					"xpet-formulaire",
 					[
 						"headerText" => "Formulaire d'enregistrement",
 						"classes" => $classes
@@ -56,7 +62,22 @@
 			}
 		}
 
-		public function updateXpet($id = null) {
+		public function updateXpet() {
+			
+			$xp = new XpetDAO();
+			
+			if(isset($_SESSION["xpetId"], $_POST["delete"])) {
+				$xp->deleteById($_SESSION["xpetId"]);
+				unset($_SESSION["xpetId"]);
+			} else if (isset($_SESSION["xpetId"])) {
+				$xp->updateId($_SESSION["xpetId"], $_POST);
+				unset($_SESSION["xpetId"]);
+			} else {
+				$xp->insert($_POST);
+			}
+
+			FileController::redirect("xpet");
+
 
 		}
 

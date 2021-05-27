@@ -85,6 +85,28 @@
 			}
 		}
 
+		function updateId($id, $data) {
+
+			$stmt = $this->prepareStmt(
+				"UPDATE $this->table
+				 SET {$this->getUpdateString($data)}
+				 WHERE $this->primaryKey = :id"
+			);
+			
+			$stmt->bindValue(":id", $id);
+
+			foreach ($data as $key => $value) {
+				$stmt->bindValue(":$key", $value);
+			}
+
+			if(!$stmt->execute()){
+				echo "Erreur de mise à jour";
+				return implode(" :: ", $stmt->errorInfo());
+			}else{
+				return true;
+			}
+		}
+
 		function selectAll($conditions = NULL, $orderBy = null, $order = "ASC") {
 			$sql =
 				"SELECT *
@@ -96,14 +118,23 @@
 			return $this->c->query($sql)->fetchAll();
 		}
 
-		function selectById($id, $field = "id") {
-			$sql = "SELECT * FROM $this->table WHERE $field = $id";
-			return $this->c->query($sql)->fetch();
+		function selectById($id) {
+			$stmt = $this->prepareStmt("SELECT * FROM $this->table WHERE $this->primaryKey = :id");
+
+			if($stmt->execute([":id" => $id]))
+				return $stmt->fetch();
+			else {
+				return false;
+			}
 		}
 
-		function deleteById($id, $field = "id") {
-			$sql = "DELETE from $this->table where $field = $id";
-			return $this->c->query($sql)->rowCount() > 0;
+		function deleteById($id) {
+			$stmt = $this->prepareStmt("DELETE from $this->table where $this->primaryKey = :id");
+			echo $id;
+
+			$stmt->execute([":id" => $id]);
+			echo $stmt->rowCount();
+			return $stmt->rowCount() > 0;
 		}
 	}
 

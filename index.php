@@ -1,6 +1,8 @@
 <?php
 	namespace XPetsIntl;
 
+	session_start();
+
 	define(__NAMESPACE__ . "\NS", __NAMESPACE__ . "\\");
 
 	require_once __DIR__ . '/controller/FileController.php';

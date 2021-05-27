@@ -2,7 +2,7 @@
 
 	namespace XPetsIntl;
 
-	class ClassGW extends Gateway {
+	class ClassDAO extends Gateway {
 		protected $table = "class";
 	}
 
