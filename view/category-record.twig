@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>{{ entry.name }} :: X-Pets - Adoption d'animaux avec superpouvoirs</title>
+	<meta name="description" content="Portail d'accueil de X-Pets, un centre d'hébergement et d'adoption pour animaux mutants">
+
+	<!-- Fonts -->
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="{{ constant("\\XPetsIntl\\ROOTPATH") }}styles/main.css">
+
+</head>
+
+<body>
+	<header>
+		<a href="{{ constant("\\XPetsIntl\\ROOTPATH") }}teams">&lt;- Retour à la liste des {{ entryLabelText }}</a>
+		<h1>{{ entry.name }}</h1>
+		<p>{{ entry.description }}</p>
+		<a class="cta" href="{{ constant("\\XPetsIntl\\ROOTPATH") ~ controllerSlug }}/formulaire/{{ entry.id }}">Mettre à jour</a>
+	</header>
+	
+	<main>
+		<section class="animal-listing">
+			<h2>{{ animalsTitleText }}</h2>
+			{% include "includes/xpets-grid.twig" %}		
+		 </section>
+	</main>
+</body>
+</html>

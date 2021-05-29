@@ -20,25 +20,25 @@
 	<header>
 		<h1>Bienvenue chez Xpets Intl. !</h1>
 		<span class="tagline">Notre mission, trouver votre meilleur ami !</span>
+
+		<nav>
+			<a class="cta" href="{{ constant("\\XPetsIntl\\ROOTPATH") }}teams">Voir les équipes</a>
+			<a class="cta" href="{{ constant("\\XPetsIntl\\ROOTPATH") }}classes">Voir les classes</a>
+			<a class="cta" href="{{ constant("\\XPetsIntl\\ROOTPATH") }}superpowers">Voir les superpouvoirs</a>
+		</nav>
 	</header>
 	
 	<main>
 		<section class="animal-listing">
 			<h2>Nos animaux</h2>
 			
-			<div class="grid">
-				{% for xpet in xpets %}
-				<article>
-					<h3>{{ xpet.name }}</h3>
-					<span class="animal-class aninalClass-id-{{ xpet.classId }}">{{ xpet.class }}</span>
-					<p>{{ xpet.description }}</p>
-					<a href="xpet/formulaire/{{ xpet.id }}">Mettre à jour</a>
-				</article>				
-				{% endfor %}
-			</div>
+			{% include "includes/xpets-grid.twig" %}
+			
 		</section>
 
-		<a href="xpet/formulaire/">Ajouter une fiche</a>
+		<div class="actions">
+			<a class="cta" href="{{ constant("\\XPetsIntl\\ROOTPATH") }}xpets/formulaire">Ajouter un animal</a>
+		</div>
 	</main>
 </body>
 </html>

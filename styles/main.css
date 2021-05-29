@@ -26,7 +26,7 @@
 body {
 	font-family: sans-serif;
 	padding: 4em 4em;
-	line-height: 1.5;
+	line-height: 1.7;
 
 	background-color: var(--light-background);
 }
@@ -38,6 +38,10 @@ body {
 
 body > * + * {
 	margin-top: 3em;
+}
+
+ul {
+	list-style-type: none;
 }
 
 h1 {
@@ -53,7 +57,19 @@ main {
 	margin-left: auto;
 }
 
-a, button, .animal-class {
+a {
+	color: currentColor;
+}
+
+p {
+	max-width: 60ch;
+}
+
+
+
+
+
+.cta, button, .animal-class {
 	display: block;
 
 	max-width: max-content;
@@ -88,7 +104,7 @@ a, button, .animal-class {
 	background-color: hsl(200, 50%, 20%);
 }
 
-a, button {
+.cta, button {
 	text-decoration: none;
 	background-color: hsla(240, 40%, 12%, .8);
 	box-shadow: var(--box-shadow-common);
@@ -96,7 +112,7 @@ a, button {
 	transition-duration: var(--trans-duration-fast);
 }
 
-:is(a, button):hover {
+:is(.cta, button):hover {
 	box-shadow: var(--box-shadow-hover);
 }
 
@@ -108,6 +124,11 @@ a, button {
 	margin-top: 1em;
 	display: block;
 	font-size: 1.2em;
+}
+
+.actions {
+	columns: 2;
+	gap: 1.5rem;
 }
 
 
@@ -122,6 +143,10 @@ a, button {
 	padding: 1em;
 	border-radius: var(--radius);
 	background-color: hsla(0, 0%, 0%, .08);
+}
+
+.entries-listing li > a:first-child {
+	font-weight: 700;
 }
 
 

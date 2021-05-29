@@ -5,23 +5,26 @@
 	FileController::model("Gateway");
 	FileController::model("XpetDAO");
 	FileController::model("ClassDAO");
+	FileController::model("TeamDAO");
+	FileController::model("SuperpowerDAO");
 
-	class XpetController {
+	class XpetsController {
 
-		public function index($id = null, $name = null) {
+		public function index($id = null, $slug = null) {
 			$xpetDAO = new XpetDAO();
 
-			if(
-				$id != null &&
-				$name != null &&
-				$xp = $xpetDAO->getXpetByIdSlug($id, $name)
-			) {
-				return TwigController::render(
-					"xpet-record",
-					[
-						"xpet" => $xp
-					]
-				);
+			if($id != null && $slug != null) {
+				if($xp = $xpetDAO->getXpetByIdSlug($id, $slug)) {
+					return TwigController::render(
+						"xpet-record",
+						[
+							"xpet" => $xp
+						]
+					);
+				} else {
+					FileController::redirect("xpets");
+					return;
+				}
 			}
 			
 
@@ -30,6 +33,7 @@
 			return TwigController::render(
 				"xpets-listing",
 				[
+					"rootPath" => __DIR__,
 					"xpets" => $xp
 				]
 			);
@@ -37,7 +41,13 @@
 
 		public function formulaire($id = null) {
 			$clDAO = new ClassDAO();
-			$classes = $clDAO->selectAll();
+			$classes = $clDAO->getAllClasses();
+
+			$teamDAO = new TeamDAO();
+			$teams = $teamDAO->getAllTeams();
+
+			/* $spowerDAO = new SuperpowerDAO();
+			$spowers = $spowerDAO->getAllSuperpowers(); */
 			
 			if(isset($_SESSION["xpetId"])) {
 				unset($_SESSION["xpetId"]);
@@ -54,6 +64,7 @@
 					[
 						"headerText" => "Formulaire de mise à jour",
 						"classes" => $classes,
+						"teams" => $teams,
 						"xpet" => $xpet,
 						"update" => true
 					]
@@ -63,7 +74,8 @@
 					"xpet-formulaire",
 					[
 						"headerText" => "Formulaire d'enregistrement",
-						"classes" => $classes
+						"classes" => $classes,
+						"teams" => $teams
 					]
 				);
 			}
@@ -77,13 +89,21 @@
 				$xp->deleteById($_SESSION["xpetId"]);
 				unset($_SESSION["xpetId"]);
 			} else if (isset($_SESSION["xpetId"])) {
+				$sluger = new \Cocur\Slugify\Slugify();
+				
+				$_POST["slug"] = $sluger->slugify($_POST["name"]);
+				
 				$xp->updateId($_SESSION["xpetId"], $_POST);
 				unset($_SESSION["xpetId"]);
 			} else {
+				$sluger = new \Cocur\Slugify\Slugify();
+				
+				$_POST["slug"] = $sluger->slugify($_POST["name"]);
+
 				$xp->insert($_POST);
 			}
 
-			FileController::redirect("xpet");
+			FileController::redirect("xpets");
 		}
 
 	}

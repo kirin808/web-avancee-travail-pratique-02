@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'c3b43d55f06f46fdbadd9c56f827a40b821ee961',
+    'reference' => '0979d7ada23e23892da3d6498cffdcecf0b8b07d',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,16 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'c3b43d55f06f46fdbadd9c56f827a40b821ee961',
+      'reference' => '0979d7ada23e23892da3d6498cffdcecf0b8b07d',
+    ),
+    'cocur/slugify' => 
+    array (
+      'pretty_version' => 'v4.0.0',
+      'version' => '4.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '3f1ffc300f164f23abe8b64ffb3f92d35cec8307',
     ),
     'symfony/polyfill-ctype' => 
     array (

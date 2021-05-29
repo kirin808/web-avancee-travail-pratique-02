@@ -19,7 +19,7 @@
 		<h1>{{ headerText }}</h1>
 	</header>
 	<main>
-		<form action="/582-31B-MA-Programmation-web-avancees/travail-pratique-02/dev/xpet/updateXpet" method="post">
+		<form action="/582-31B-MA-Programmation-web-avancees/travail-pratique-02/dev/xpets/updateXpet" method="post">
 			<div class="input-field">
 				<label for="inputName">Nom de l'animal : </label>
 				<input name="name" id="inputName" type="text" {% if update %}value="{{ xpet.name }}"{% endif %}> 
@@ -36,17 +36,46 @@
 					<option
 						value="{{ class.id }}"
 						{% if update and class.id == xpet.classId %}selected{% endif %}>
-						{{ class.label }}
+						{{ class.name }}
+					</option>
+					{% endfor %}
+				</select>
+			</div>
+
+			<div class="input-field">
+				<label for="selectTeam">Affiliation : </label>
+				<select name="teamId" id="selectTeam">
+					{% if not update %}
+					<option value="" disabled selected>Choisir une équipe ...</option>
+					{% endif %}
+
+					{% for team in teams %}
+					<option
+						value="{{ team.id }}"
+						{% if update and team.id == xpet.teamId %}selected{% endif %}>
+						{{ team.name }}
+					</option>
+					{% endfor %}
+				</select>
+			</div>
+
+			<div class="input-field">
+				<label for="selectPower">Superpouvoir : </label>
+				<select name="superpowerId" id="selectPower">
+					{% if not update %}
+					<option value="" disabled selected>Choisir une équipe ...</option>
+					{% endif %}
+
+					{% for power in powers %}
+					<option
+						value="{{ power.id }}"
+						{% if update and power.id == xpet.superpowerId %}selected{% endif %}>
+						{{ superpower.name }}
 					</option>
 					{% endfor %}
 				</select>
 			</div>
 			
-			<!-- <div class="input-field">
-				<label for="inputSuperpowers">Superpouvoirs : </label>
-				<textarea name="superpowers" id="inputSuperpowers"></textarea>
-			</div> -->
-
 			<div class="input-field">
 				<label for="inputDesc">Description : </label>
 				<textarea name="description" id="inputDesc">{% if update %}{{ xpet.description }}{% endif %}</textarea>

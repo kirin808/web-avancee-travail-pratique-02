@@ -4,21 +4,22 @@
 
 	class XpetDAO extends Gateway {
 		protected $table = "xpet";		
+		private $baseSelectQuery = 
+			"SELECT xpet.name, xpet.id, xpet.description, xpet.classId, xpet.slug, xpet.teamId, team.name as teamName, team.slug as teamSlug, superpower.name as superpowerName, class.name as class, class.slug as classSlug
+			from xpet
+			join class on class.id = xpet.classId
+			join team on team.id = xpet.teamId
+			join superpower on superpower.id = xpet.superpowerId";
 
 		public function getAllXpets() {
-			$query = 
-				"SELECT xpet.name, xpet.id, xpet.description, xpet.classId, class.label as class
-				from $this->table
-				join class on class.id = xpet.classId";
-			
+			$query = $this->baseSelectQuery;
+				
 			return $this->c->query($query)->fetchAll();
 		}
 
 		public function getXpetById($id) {
 			$stmt = $this->prepareStmt( 
-				"SELECT xpet.name, xpet.id, xpet.description, xpet.slug, xpet.classId, class.label as class
-				from $this->table
-				join class on class.id = xpet.classId
+				"$this->baseSelectQuery
 				where $this->table.$this->primaryKey = :id"
 			);
 			
@@ -31,25 +32,45 @@
 
 		public function getXpetByIdSlug($id, $slug) {
 			$stmt = $this->prepareStmt( 
-				"SELECT xpet.name, xpet.id, xpet.description, xpet.classId, class.label as class
-				from xpet
-				join class on class.id = xpet.classId
+				"$this->baseSelectQuery
 				where xpet.$this->primaryKey = :id
 					and xpet.slug = :slug"
 			);
 			
+			if($stmt->execute(
+				[
+					":id" => $id,
+					":slug" => $slug
+				]
+			)
+			) {
+				return $stmt->fetch();
+			} else {
+				return false;
+			};
+		}
+
+		//join superpower on superpower.id = xpet.superpowerId
+		public function getXpetsByCategoryIdSlug($cat, $id, $slug) {
+			$stmt = $this->prepareStmt( 
+				"$this->baseSelectQuery
+				where $cat.id = :id
+					and $cat.slug = :slug"
+			);
+
 			if($stmt->execute(
 					[
 						":id" => $id,
 						":slug" => $slug
 					]
 				)
-			)
-				return $stmt->fetch();
-			else {
+			) {
+				return $stmt->fetchAll();
+			} else {
 				return false;
 			};
 		}
+		
 	}
 
 ?>

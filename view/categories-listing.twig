@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>{{ entryLabelTextPlur|capitalize }} :: X-Pets - Adoption d'animaux avec superpouvoirs</title>
+	<meta name="description" content="Portail d'accueil de X-Pets, un centre d'hébergement et d'adoption pour animaux mutants">
+
+	<!-- Fonts -->
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="{{ constant("\\XPetsIntl\\ROOTPATH") }}styles/main.css">
+
+</head>
+
+<body>
+	<header>
+		<a href="{{ constant("\\XPetsIntl\\ROOTPATH") }}xpets">&lt;- Retour à la liste des animaux</a>
+		<h1>Les {{ entryLabelTextPlur }} X-Pets</h1>
+	</header>
+	
+	<main>
+		<section class="entries-listing">
+			<h2>Les {{ entryLabelTextPlur }}</h2>
+			
+			{% if entries|length > 0 %}
+			<ul>
+				{% for entry in entries %}
+				<li><a href="{{ constant("\\XPetsIntl\\ROOTPATH") ~ controllerSlug ~ "/" ~ entry.id ~ "/" ~ entry.slug }}">{{ entry.name }}</a> <a href="{{ constant("\\XPetsIntl\\ROOTPATH") ~ controllerSlug }}/formulaire/{{ entry.id }}">Mettre à jour</a></li>
+				{% endfor %}
+			</ul>
+			{% else %}
+			<p>Aucune entrée</p>
+			{% endif %}
+		</section>
+
+		<a class="cta" href="{{ constant("\\XPetsIntl\\ROOTPATH") ~ controllerSlug }}/formulaire">Ajouter une {{ entryLabelTextSing }}</a>
+	</main>
+</body>
+</html>
