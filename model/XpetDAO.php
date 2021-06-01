@@ -5,7 +5,7 @@
 	class XpetDAO extends Gateway {
 		protected $table = "xpet";		
 		private $baseSelectQuery = 
-			"SELECT xpet.name, xpet.id, xpet.description, xpet.classId, xpet.slug, xpet.teamId, team.name as teamName, team.slug as teamSlug, superpower.name as superpowerName, class.name as class, class.slug as classSlug
+			"SELECT xpet.name, xpet.id, xpet.description, xpet.classId, xpet.slug, xpet.superpowerId, xpet.teamId, team.name as teamName, team.slug as teamSlug, superpower.name as superpowerName, superpower.slug as superpowerSlug, class.name as class, class.slug as classSlug
 			from xpet
 			join class on class.id = xpet.classId
 			join team on team.id = xpet.teamId

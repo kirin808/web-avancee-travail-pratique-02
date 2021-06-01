@@ -46,8 +46,8 @@
 			$teamDAO = new TeamDAO();
 			$teams = $teamDAO->getAllTeams();
 
-			/* $spowerDAO = new SuperpowerDAO();
-			$spowers = $spowerDAO->getAllSuperpowers(); */
+			$spowerDAO = new SuperpowerDAO();
+			$spowers = $spowerDAO->getAllSuperpowers();
 			
 			if(isset($_SESSION["xpetId"])) {
 				unset($_SESSION["xpetId"]);
@@ -65,6 +65,7 @@
 						"headerText" => "Formulaire de mise à jour",
 						"classes" => $classes,
 						"teams" => $teams,
+						"powers" => $spowers,
 						"xpet" => $xpet,
 						"update" => true
 					]

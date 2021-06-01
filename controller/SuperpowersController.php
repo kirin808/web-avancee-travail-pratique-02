@@ -27,7 +27,7 @@
 							// Textes personnalisés
 							"entryLabelTextPlur" => "superpouvoirs",
 							"entryLabelTextSing" => "superpouvoir",
-							"animalsTitleText" => "Liste des superpouvoirs"
+							"animalsTitleText" => "Liste des animaux ayant ce superpouvoir"
 						]
 					);
 				} else {

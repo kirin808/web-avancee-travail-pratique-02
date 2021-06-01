@@ -3,11 +3,17 @@
 	<article>
 		<h3><a href="{{ constant("\\XPetsIntl\\ROOTPATH") }}xpets/{{ xpet.id }}/{{ xpet.slug }}">{{ xpet.name }}</a></h3>
 		<span class="animal-class aninalClass-id-{{ xpet.classId }}">{{ xpet.class }}</span>
-		<div>
-			<span>Affiliation : <a href="{{ constant("\\XPetsIntl\\ROOTPATH") }}teams/{{ xpet.teamId }}/{{ xpet.teamSlug }}">{{ xpet.teamName }}</a></span>
-		</div>
+		<dl>
+			<dt>Affiliation : </dt>
+			<dd><a href="{{ constant("\\XPetsIntl\\ROOTPATH") }}teams/{{ xpet.teamId }}/{{ xpet.teamSlug }}">{{ xpet.teamName }}</a></dd>
+
+			<dt>Superpouvoir : </dt>
+			<dd><a href="{{ constant("\\XPetsIntl\\ROOTPATH") }}superpowers/{{ xpet.superpowerId }}/{{ xpet.superpowerSlug }}">{{ xpet.superpowerName }}</a></dd>
+
+			<dt>Description : </dt>
+			<dd>{{ xpet.description }}</dd>
+		</dl>
 		
-		<p>{{ xpet.description }}</p>
 		<a class="cta" href="{{ constant("\\XPetsIntl\\ROOTPATH") }}xpets/formulaire/{{ xpet.id }}">Mettre à jour</a>
 	</article>				
 	{% endfor %}
